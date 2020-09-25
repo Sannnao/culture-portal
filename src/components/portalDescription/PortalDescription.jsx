@@ -161,7 +161,7 @@ const PortalDescription = props => {
           variant="contained"
           color="primary"
           className={`${classes.openSourceSection__repositoryLinkButton} open-source-section__open-source-button`}
-          href="https://github.com/rss-team-15/codejam-culture-portal"
+          href="https://github.com/Sannnao/culture-portal"
           alt="To GitHub"
           target="_blank"
         >
