@@ -1,50 +1,38 @@
-import React, { Component } from 'react';
-import { Helmet } from "react-helmet";
+import React, { useState } from 'react';
+import { Helmet } from 'react-helmet';
+import { supportedLanguages } from '../components/languagePicker/constants';
 
 import NavBar from '../components/navBar';
+import './layout-1.scss';
 
-import { languagesStore } from '../storage';
+export const LanguageContext = React.createContext(supportedLanguages[0]);
 
-class Layout extends Component {
-  constructor(props) {
-    super(props);
+export const Layout = ({ children }) => {
+  const [currentLanguage, setCurrentLanguage] = useState(supportedLanguages[0]);
 
-    const { activeLanguage } = languagesStore.getState();
+  const handleChange = event => {
+    setCurrentLanguage(event.target.value);
+  };
 
-    this.state = {
-      activeLanguage,
-    };
-  }
-
-  render() {
-    languagesStore.subscribe(() => {
-      const { activeLanguage } = languagesStore.getState();
-
-      this.setState({ activeLanguage });
-    });
-
-    const { children } = this.props;
-
-    return (
-      <React.Fragment>
-        <Helmet>
-          <meta charSet="utf-8" />
-          <title>Culture Portal</title>
-        </Helmet>
-        <NavBar
-          homeLink={this.state.activeLanguage.navbar.homeLink}
-          poetsListLink={this.state.activeLanguage.navbar.poetsListLink}
-        />
-        <main>{children}</main>
-        <footer className="footer">
-          <p>© {new Date().getFullYear()}, Built with &nbsp;</p>
-          <p>
-            <a href="https://www.gatsbyjs.org"> Gatsby</a>
-          </p>
-        </footer>
-      </React.Fragment>
-    );
-  }
-}
+  return (
+    <LanguageContext.Provider value={currentLanguage}>
+      <Helmet>
+        <meta charSet="utf-8" />
+        <title>Culture Portal</title>
+      </Helmet>
+      <NavBar
+        handleChange={handleChange}
+        currentLanguage={currentLanguage}
+      />
+      <main>{children}</main>
+      <footer className="footer">
+        <p>© {new Date().getFullYear()}, Built with &nbsp;</p>
+        <p>
+          <a href="https://www.gatsbyjs.org"> Gatsby</a>
+        </p>
+      </footer>
+    </LanguageContext.Provider>
+  );
+};
 
 export default Layout;

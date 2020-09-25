@@ -9,15 +9,16 @@ import {
 
 const date = new Date();
 const dayNumber = date.getDate();
+const month = date.getMonth();
 const year = date.getFullYear();
 
-const dayEng = daysOfWeekEng[date.getDay()];
-const dayRus = daysOfWeekRus[date.getDay()];
-const dayBel = daysOfWeekBel[date.getDay()];
+const dayEng = daysOfWeekEng[dayNumber];
+const dayRus = daysOfWeekRus[dayNumber];
+const dayBel = daysOfWeekBel[dayNumber];
 
-const monthEng = monthsEng[date.getMonth()];
-const monthRus = monthsRus[date.getMonth()];
-const monthBel = monthsBel[date.getMonth()];
+const monthEng = monthsEng[month];
+const monthRus = monthsRus[month];
+const monthBel = monthsBel[month];
 
 const englishContent = {
   navbar: {
@@ -169,12 +170,7 @@ const belarusianContent = {
 };
 
 export default {
-  contents: {
-    english: englishContent,
-    russian: russianContent,
-    belarusian: belarusianContent,
-  },
-  contentsActive: englishContent,
-  activeLanguage: englishContent,
-  lang: 'english',
+  english: englishContent,
+  russian: russianContent,
+  belarusian: belarusianContent,
 };

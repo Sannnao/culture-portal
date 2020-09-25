@@ -1,49 +1,33 @@
-import React, { Component } from 'react';
+import React, { useContext } from 'react';
+import content from '../../storage/initState';
 
 import PortalDescription from '../portalDescription';
 import AuthorOfTheDay from '../AuthorOfTheDay';
 import DevelopersList from '../developersList';
+import { LanguageContext } from '../../layout/Layout';
 
-import { languagesStore } from '../../storage';
+export const Home = ({ authors }) => {
+    const currentLanguage = useContext(LanguageContext);
+    const authorsList = authors[`allContentfulAuthor${currentLanguage.code[0].toUpperCase() + currentLanguage.code.slice(1)}`].edges;
+    const currentContent = content[currentLanguage.code];
 
-export default class Home extends Component {
-  constructor() {
-    super();
+    const currentDate = new Date().getDay();
 
-    const { activeLanguage, lang } = languagesStore.getState();
-
-    this.state = {
-      activeLanguage,
-      lang,
-    };
-  }
-
-  render() {
-    languagesStore.subscribe(() => {
-      const { activeLanguage, lang } = languagesStore.getState();
-
-      this.setState({ activeLanguage, lang });
-    });
-
-    const { authors } = this.props;
-    const authorsList = authors[`allContentfulAuthor${this.state.lang[0].toUpperCase() + this.state.lang.slice(1)}`].edges;
-
-    const authorOfTheDay = authorsList[Math.floor(Math.random() * 7)].node;
+    const authorOfTheDay = authorsList[currentDate].node;
 
     return (
       <React.Fragment>
         <PortalDescription
-          textContent={this.state.activeLanguage.home.portalDescription}
+          textContent={currentContent.home.portalDescription}
         />
         <AuthorOfTheDay
           authorOfTheDay={authorOfTheDay}
-          poetOfTheDay={this.state.activeLanguage.home.poetOfTheDay}
+          poetOfTheDay={currentContent.home.poetOfTheDay}
           poetPhoto={authorOfTheDay.mainPicture.file.url}
         />
         <DevelopersList
-          developers={this.state.activeLanguage.home.developersList}
+          developers={currentContent.home.developersList}
         />
       </React.Fragment>
     );
-  }
 }

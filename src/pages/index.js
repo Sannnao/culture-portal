@@ -1,9 +1,9 @@
 import React from 'react';
 import { graphql } from 'gatsby';
 
-import Layout from '../layout/';
+import { Layout } from '../layout/Layout';
 
-import Home from '../components/home';
+import { Home } from '../components/home/Home';
 
 const IndexPage = ({ data }) => {
   const authors = data;

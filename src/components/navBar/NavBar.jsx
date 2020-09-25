@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'gatsby';
 import { makeStyles } from '@material-ui/core/styles';
+import content from '../../storage/initState';
 
 import LanguagePicker from '../languagePicker';
 
@@ -65,7 +66,7 @@ const routingLinkStyle = {
   color: '#ffffff',
 };
 
-const NavBar = props => {
+const NavBar = ({ handleChange, currentLanguage }) => {
   const {
     navBar,
     controlsBar,
@@ -73,11 +74,16 @@ const NavBar = props => {
     controlsBar__controlLinkButton,
   } = useStyles();
 
-  const { homeLink, poetsListLink } = props;
+  const {
+    navbar: {
+      homeLink,
+      poetsListLink,
+    }
+  } = content[currentLanguage.code];
 
   return (
     <header className={`${navBar} nav-bar`}>
-      <LanguagePicker />
+      <LanguagePicker handleChange={handleChange} currentLanguage={currentLanguage} />
 
       <ul className={`${controlsBar} controls-bar`}>
         <li className={`${controlsBar__controlLinkButton} nav-bar__nav-link`}>

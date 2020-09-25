@@ -1,10 +1,11 @@
-import React from 'react';
+import React, { useState, useContext } from 'react';
+import content from '../../storage/initState';
+import { LanguageContext } from '../../layout/Layout';
 
 import { withStyles } from '@material-ui/core/styles';
 import { Grid, TextField, List, ListItem } from '@material-ui/core/';
 
 import PoetCart from '../poetCard';
-import { languagesStore } from '../../storage';
 
 const styles = {
   container: {
@@ -33,42 +34,31 @@ const styles = {
   },
 };
 
-class AuthorsList extends React.Component {
-  constructor(props) {
-    super(props);
-
-    const {
-      activeLanguage: {
-        poetsListBlock: { poetsListSearchLabel, poetCardLearnMore },
-      },
-      lang,
-    } = languagesStore.getState();
-
-    this.state = {
+const AuthorsList = ({ classes, authors }) => {
+  const [inputValue, setInputValue] = useState('');
+  const currentLanguage = useContext(LanguageContext);
+  const {
+    poetsListBlock: {
       poetsListSearchLabel,
       poetCardLearnMore,
-      authorsList: [
-        ...this.props.authors[
-          `allContentfulAuthor${lang[0].toUpperCase() + lang.slice(1)}`
-        ].edges,
-      ],
-      lang,
-    };
+    }
+  } = content[currentLanguage.code];
 
-    this.handleChange = this.handleChange.bind(this);
-  }
+  const handleChange = event => {
+    setInputValue(event.target.value);
+  };
 
-  handleChange(event) {
+  const filterAuthors = (value) => {
     const queryLang =
-      this.state.lang[0].toUpperCase() + this.state.lang.slice(1);
-    const authors = this.props.authors[`allContentfulAuthor${queryLang}`].edges;
+      currentLanguage.code[0].toUpperCase() + currentLanguage.code.slice(1);
+    const authorsList = authors[`allContentfulAuthor${queryLang}`].edges;
 
-    const filteredList = authors.filter(author => {
+    const filteredList = authorsList.filter(author => {
       const { name, surname, city } = author.node;
       const fullName = `${name} ${surname}`.toLowerCase();
       const reverseFullName = `${surname} ${name}`.toLowerCase();
       const poetCity = city.toLowerCase();
-      const eValue = event.target.value.toLowerCase();
+      const eValue = value.toLowerCase();
       const regExp = new RegExp(eValue, 'g');
 
       return (
@@ -78,89 +68,63 @@ class AuthorsList extends React.Component {
       );
     });
 
-    this.setState({ authorsList: filteredList });
-  }
+    return filteredList;
+  };
 
-  render() {
-    const { classes } = this.props;
+  return (
+    <Grid
+      className={classes.container}
+      container
+      direction="column"
+      justify="flex-start"
+      alignItems="center"
+    >
+      <div className={`search-widget ${classes.form}`}>
+        <TextField
+          onChange={handleChange}
+          value={inputValue}
+          className={classes.textField}
+          name="title"
+          label={poetsListSearchLabel}
+        />
+      </div>
 
-    languagesStore.subscribe(() => {
-      const {
-        activeLanguage: {
-          poetsListBlock: { poetsListSearchLabel, poetCardLearnMore },
-        },
-        lang,
-      } = languagesStore.getState();
+      <List>
+        {filterAuthors(inputValue).map(author => {
+          const {
+            id,
+            slug,
+            name,
+            surname,
+            yearsOfLife,
+            city,
+            mainPicture,
+            order,
+          } = author.node;
+          const poetInfo = {
+            id,
+            slug,
+            name,
+            surname,
+            yearsOfLife,
+            city,
+            mainPicture,
+            order,
+          };
 
-      const authorsList = [
-        ...this.props.authors[
-          `allContentfulAuthor${lang[0].toUpperCase() + lang.slice(1)}`
-        ].edges,
-      ];
-
-      this.setState({
-        poetsListSearchLabel,
-        poetCardLearnMore,
-        lang,
-        authorsList,
-      });
-    });
-
-    return (
-      <Grid
-        className={classes.container}
-        container
-        direction="column"
-        justify="flex-start"
-        alignItems="center"
-      >
-        <div className={`search-widget ${classes.form}`}>
-          <TextField
-            onChange={this.handleChange}
-            value={this.state.input}
-            className={classes.textField}
-            name="title"
-            label={this.state.poetsListSearchLabel}
-          />
-        </div>
-
-        <List>
-          {this.state.authorsList.map(author => {
-            const {
-              id,
-              slug,
-              name,
-              surname,
-              yearsOfLife,
-              city,
-              mainPicture,
-              order,
-            } = author.node;
-            const poetInfo = {
-              id,
-              slug,
-              name,
-              surname,
-              yearsOfLife,
-              city,
-              mainPicture,
-              order,
-            };
-
-            return (
-              <ListItem key={id} className={classes.listItem}>
-                <PoetCart
-                  authorInfo={poetInfo}
-                  authorPhoto={mainPicture.file.url}
-                  poetCardLearnMore={this.state.poetCardLearnMore}
-                />
-              </ListItem>
-            );
-          })}
-        </List>
-      </Grid>
-    );
-  }
-}
+          return (
+            <ListItem key={id} className={classes.listItem}>
+              <PoetCart
+                authorInfo={poetInfo}
+                authorPhoto={mainPicture.file.url}
+                poetCardLearnMore={poetCardLearnMore}
+              />
+            </ListItem>
+          );
+        })}
+      </List>
+    </Grid>
+  );
+};
 
 export default withStyles(styles)(AuthorsList);

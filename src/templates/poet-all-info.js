@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useContext } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { Paper, Grid } from '@material-ui/core';
 
@@ -9,10 +9,11 @@ import PoetVideo from '../components/poetAllInfo/video';
 import PoetMap from '../components/poetAllInfo/map';
 import PoetGallery from '../components/poetAllInfo/gallery';
 
-import { languagesStore } from '../storage';
+import { LanguageContext } from '../layout/Layout';
+// import content from '../storage/initState';
 import './style.scss';
 
-import Layout from '../layout/';
+import { Layout } from '../layout/Layout';
 
 const useStyles = makeStyles(theme => ({
   poetAllInfoContainer: {
@@ -28,16 +29,9 @@ const useStyles = makeStyles(theme => ({
 
 const PoetAllInfo = ({ pageContext }) => {
   const classes = useStyles();
-  const { lang } = languagesStore.getState();
-  const [language, updateLang] = useState(lang);
-
-  languagesStore.subscribe(() => {
-    const { lang } = languagesStore.getState();
-
-    updateLang(lang);
-  });
-
+  const currentLanguage = useContext(LanguageContext);
   const { indexData } = pageContext;
+  const langString = currentLanguage.code[0].toUpperCase() + currentLanguage.code.slice(1);
 
   const {
     name,
@@ -50,7 +44,7 @@ const PoetAllInfo = ({ pageContext }) => {
     placesOfActivity,
     gallery,
   } = pageContext.resultData[
-    `allContentfulAuthor${lang[0].toUpperCase() + lang.slice(1)}`
+    `allContentfulAuthor${langString}`
   ].edges[indexData].node;
 
   const {
@@ -61,7 +55,7 @@ const PoetAllInfo = ({ pageContext }) => {
     watchVideoTitle,
     galleryTitle,
   } = pageContext.resultData[
-    `contentfulPoetPageInterface${lang[0].toUpperCase() + lang.slice(1)}`
+    `contentfulPoetPageInterface${langString}`
     ];
 
   const poetInfo = { name, surname, yearsOfLife, mainPicture };
