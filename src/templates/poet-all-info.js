@@ -32,6 +32,7 @@ const PoetAllInfo = ({ pageContext }) => {
   const currentLanguage = useContext(LanguageContext);
   const { indexData } = pageContext;
   const langString = currentLanguage.code[0].toUpperCase() + currentLanguage.code.slice(1);
+  console.log(currentLanguage);
 
   const {
     name,

@@ -1,59 +1,66 @@
 import React from 'react';
+import { useStaticQuery, graphql } from 'gatsby';
 import { makeStyles } from '@material-ui/core/styles';
-import { Card, Grid, Avatar, Typography } from '@material-ui/core';
+import { Card, Grid, Avatar } from '@material-ui/core';
 
 const useStyles = makeStyles({
+  technologiesContainer: {
+    display: 'flex',
+  },
   technologyCard: {
-    width: '17vw',
+    margin: '0 5px',
   },
-  technologyCardImageBlock: {
-    height: '15vw',
-  },
-  technologyCardImageBlock__technologyImage: {
-    height: '9vw',
-    width: '9vw',
-  },
-  technologyCardNameBlock: {
-    height: '10vw',
-  },
-  technologyCardNameBlock__technologyName: {
-    fontSize: '2vw',
+  technologyImage: {
+    height: '40px',
+    width: '40px',
   },
 });
 
-const UsedTechnology = props => {
-  const { tecnologyImg, tecnologyName } = props;
+const UsedTechnology = () => {
+  const data = useStaticQuery(
+    graphql`
+      query technologyQuery {
+        allContentfulTechnology(sort: { fields: order, order: ASC }) {
+          nodes {
+            id
+            logo {
+              file {
+                url
+              }
+            }
+            technology
+            order
+            linkToTech
+          }
+        }
+      }
+    `
+  );
+
+  const technologies = data.allContentfulTechnology.nodes;
   const classes = useStyles();
 
   return (
-    <Card className={classes.technologyCard}>
-      <Grid
-        className={classes.technologyCardImageBlock}
-        container
-        justify="center"
-        alignItems="center"
-      >
-        <Avatar
-          className={classes.technologyCardImageBlock__technologyImage}
-          src={tecnologyImg}
-        />
-      </Grid>
+      <Grid className={classes.technologiesContainer}>
+        {technologies.map(tech => {
+          const { id, logo, linkToTech } = tech;
+          const icon = logo.file.url;
 
-      <Grid
-        className={classes.technologyCardNameBlock}
-        container
-        justify="center"
-        alignItems="center"
-      >
-        <Typography
-          className={classes.technologyCardNameBlock__technologyName}
-          variant="h5"
-          component="p"
-        >
-          {tecnologyName}
-        </Typography>
+          return (
+            <a
+              href={linkToTech}
+              target='_blank'
+              key={id}
+              className={classes.technologyCard}
+            >
+                <img
+                  className={classes.technologyImage}
+                  src={icon}
+                />
+            </a>
+          );
+        })}
       </Grid>
-    </Card>
   );
 };
 

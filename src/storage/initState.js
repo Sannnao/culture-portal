@@ -8,13 +8,14 @@ import {
 } from '../utils/dateStuff';
 
 const date = new Date();
-const dayNumber = date.getDate();
+const dayOfWeek = date.getDay();
+const dayOfMonth = date.getDate();
 const month = date.getMonth();
 const year = date.getFullYear();
 
-const dayEng = daysOfWeekEng[dayNumber];
-const dayRus = daysOfWeekRus[dayNumber];
-const dayBel = daysOfWeekBel[dayNumber];
+const dayEng = daysOfWeekEng[dayOfWeek];
+const dayRus = daysOfWeekRus[dayOfWeek];
+const dayBel = daysOfWeekBel[dayOfWeek];
 
 const monthEng = monthsEng[month];
 const monthRus = monthsRus[month];
@@ -38,7 +39,7 @@ const englishContent = {
     },
     poetOfTheDay: {
       poetOfTheDayCardTitle: 'Author Of The Day',
-      curDateTitle: `${monthEng} ${dayNumber}, ${dayEng} ${year}`,
+      curDateTitle: `${monthEng} ${dayOfMonth}, ${dayEng} ${year}`,
       learnMoreBtn: 'Learn More',
     },
     developersList: {
@@ -87,7 +88,7 @@ const russianContent = {
     },
     poetOfTheDay: {
       poetOfTheDayCardTitle: 'Автор дня',
-      curDateTitle: `${monthRus} ${dayNumber}, ${dayRus} ${year}`,
+      curDateTitle: `${monthRus} ${dayOfMonth}, ${dayRus} ${year}`,
       learnMoreBtn: 'Узнать больше',
     },
     developersList: {
@@ -137,7 +138,7 @@ const belarusianContent = {
     },
     poetOfTheDay: {
       poetOfTheDayCardTitle: 'Аўтар Дня',
-      curDateTitle: `${monthBel} ${dayNumber}, ${dayBel} ${year}`,
+      curDateTitle: `${monthBel} ${dayOfMonth}, ${dayBel} ${year}`,
       learnMoreBtn: 'Даведацца больш',
     },
     developersList: {

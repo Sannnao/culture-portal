@@ -1,10 +1,7 @@
 import React from 'react';
-import { useStaticQuery, graphql } from 'gatsby';
 
 import { makeStyles } from '@material-ui/core/styles';
 import { Typography, Grid, SvgIcon, Button } from '@material-ui/core';
-
-import UsedTechnology from '../usedTechnology';
 
 import belorusianLandscape from './assets/belorusian-landscape.jpg';
 import svgIcons from './assets/svg-icons';
@@ -20,9 +17,6 @@ const useStyles = makeStyles({
   aboutSection: {
     boxShadow: '0 -22px 15px #00000080',
   },
-  usedTecnologiesContainer: {
-    background: 'linear-gradient(#ffffff, #eeeeee)',
-  },
   openSourceSection: {
     background: 'linear-gradient(#eeeeee, #ffffff)',
   },
@@ -35,32 +29,10 @@ const useStyles = makeStyles({
 });
 
 const PortalDescription = props => {
-  const data = useStaticQuery(
-    graphql`
-      query technologyQuery {
-        allContentfulTechnology(sort: { fields: order, order: ASC }) {
-          nodes {
-            id
-            logo {
-              file {
-                url
-              }
-            }
-            technology
-            order
-          }
-        }
-      }
-    `
-  );
-
-  const technologies = data.allContentfulTechnology.nodes;
-
   const {
     textContent: {
       topSectionHeader,
       aboutSectionHeader,
-      usedTechnologies,
       openSourceSectionHeader,
       openSourceSectionButton,
     },
@@ -107,37 +79,6 @@ const PortalDescription = props => {
         <SvgIcon className="about-section__reading-icon">
           <path d={svgIcons.reading} />
         </SvgIcon>
-      </Grid>
-
-      {/* Section with used technologies info */}
-      <Grid
-        className={`${classes.usedTecnologiesContainer} used-tecnologies-container`}
-        container
-        justify="space-around"
-        alignItems="center"
-      >
-        <Typography
-          className="used-tecnologies-container__used-technologies-header"
-          variant="h4"
-          color="textSecondary"
-          component="p"
-        >
-          {usedTechnologies}
-        </Typography>
-        <Grid container justify="space-around" alignItems="center">
-          {technologies.map(tech => {
-            const { id, technology, logo } = tech;
-            const icon = logo.file.url;
-
-            return (
-              <UsedTechnology
-                key={id}
-                tecnologyImg={icon}
-                tecnologyName={technology}
-              />
-            );
-          })}
-        </Grid>
       </Grid>
 
       {/* Section with sources info */}

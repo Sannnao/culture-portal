@@ -1,4 +1,4 @@
-const daysOfWeekEng = [
+export const daysOfWeekEng = [
   'Sunday',
   'Monday',
   'Tuesday',
@@ -8,7 +8,7 @@ const daysOfWeekEng = [
   'Saturday'
 ];
 
-const daysOfWeekRus = [
+export const daysOfWeekRus = [
   'Воскресенье',
   'Понедельник',
   'Вторник',
@@ -18,7 +18,7 @@ const daysOfWeekRus = [
   'Суббота'
 ];
 
-const daysOfWeekBel = [
+export const daysOfWeekBel = [
   'Нядзеля',
   'Панядзелак',
   'Аўторак',
@@ -28,7 +28,7 @@ const daysOfWeekBel = [
   'Субота'
 ];
 
-const monthsEng = [
+export const monthsEng = [
   'January',
   'February',
   'March',
@@ -43,7 +43,7 @@ const monthsEng = [
   'December'
 ];
 
-const monthsRus = [
+export const monthsRus = [
   'Январь',
   'Февраль',
   'Март',
@@ -58,7 +58,7 @@ const monthsRus = [
   'Декабрь'
 ];
 
-const monthsBel = [
+export const monthsBel = [
   'Студзень',
   'Люты',
   'Сакавік',
@@ -72,11 +72,3 @@ const monthsBel = [
   'Лістапад',
   'Снежань'
 ];
-
-export { daysOfWeekEng };
-export { daysOfWeekRus };
-export { daysOfWeekBel };
-
-export { monthsEng };
-export { monthsRus };
-export { monthsBel };

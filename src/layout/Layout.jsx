@@ -3,6 +3,7 @@ import { Helmet } from 'react-helmet';
 import { supportedLanguages } from '../components/languagePicker/constants';
 
 import NavBar from '../components/navBar';
+import UsedTechnology from '../components/usedTechnology';
 import './layout-1.scss';
 
 export const LanguageContext = React.createContext(supportedLanguages[0]);
@@ -27,9 +28,7 @@ export const Layout = ({ children }) => {
       <main>{children}</main>
       <footer className="footer">
         <p>© {new Date().getFullYear()}, Built with &nbsp;</p>
-        <p>
-          <a href="https://www.gatsbyjs.org"> Gatsby</a>
-        </p>
+        <UsedTechnology />
       </footer>
     </LanguageContext.Provider>
   );

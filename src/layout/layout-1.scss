@@ -23,15 +23,16 @@ main {
   min-height: (100vh - 4vh);
 }
 
-.footer {  
-  height: 4vw;
-  background: #303030;
-  box-shadow: 0 -1px 12px #000000f0;
-  font-family: 'Roboto Condensed', sans-serif;
+.footer {
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: center;
+  height: 4vw;
+  background: #303030;
+  box-shadow: 0 -1px 12px #000000f0;
+  font-family: 'Roboto Condensed', sans-serif;
+
   p {
     display: block;
     color: #ffffff;
@@ -57,7 +58,7 @@ main {
 @media screen and (max-width: 1200px) {
   main {
     min-height: (100vh - 7vh);
-  } 
+  }
   .footer {
     height: 6vh;
     p {
@@ -81,7 +82,7 @@ main {
 @media screen and (max-width: 480px) {
   main {
     min-height: (100vh - 6.5vh);
-  }  
+  }
   .footer {
     height: 4vh;
     p {

@@ -6,57 +6,32 @@ import icons from './assets/svg-icons';
 
 const useStyles = makeStyles({
   githubCard: {
-    width: '18%',
-    height: '100%',
+    width: '15%',
+    height: '65%',
   },
-
-  githubCardContent: {
-    
-  },
-
   actionArea: {
     display: 'flex',
     flexDirection: 'column',
-    justifyContent: 'center',
-    height: '60%',
+    justifyContent: 'flex-end',
+    height: '80%',
+    paddingBottom: '2%',
   },
   githubCardContent__profileImage: {
-    width: '9vw',
-    height: '9vw',
+    width: 110,
+    height: 110,
   },
   githubCardContent__profileNickname: {
-    marginTop: '1vw',
+    marginTop: '5%',
     marginBottom: 0,
-
     fontSize: '20px',
   },
   githubCardContent__profileName: {
     fontSize: '14px',
   },
-  profileTasksCreatedArea: {
-    height: '25%',
-  },
-  profileTasksCreatedWrapper: {
-    height: '50px',
-    width: '50px',
-
-    borderRadius: '100%',
-  },
-  profileTasksCreatedWrapper_ok: {
-    color: '#50c878',
-    border: '0.1vw solid #50c878',
-  },
-  profileTasksCreatedWrapper_warning: {
-    color: '#ffae42',
-    border: '0.1vw solid #ffae42',
-  },
-  profileTasksCreatedWrapper__profileTasksCreated: {
-    fontSize: '17px',
-  },
   profileSocials: {
     display: 'flex',
     alignItems: 'center',
-    height: '15%',
+    height: '20%',
   },
   profileSocials__profileSocialIcon: {
     height: '20px',
@@ -72,13 +47,10 @@ const GithubProfile = props => {
     githubLink,
     githubNickname,
     contactLink,
-    tasksCreated,
-    tasksAll,
-    teamMembers
   } = props;
 
   const classes = useStyles();
-  
+
   return (
     <Card className={`${classes.githubCard} gh-gard`}>
       <CardActionArea className={classes.actionArea} href={githubLink}>
@@ -112,32 +84,6 @@ const GithubProfile = props => {
           </Grid>
         </Grid>
       </CardActionArea>
-      <Grid
-        className={`${classes.profileTasksCreatedArea}`}
-        container
-        justify="center"
-        alignItems="center"
-      >
-        <Grid
-          className={`${classes.profileTasksCreatedWrapper}  gh-task-wrapper ${
-            tasksAll / (teamMembers + 1) < tasksCreated
-              ? classes.profileTasksCreatedWrapper_ok
-              : classes.profileTasksCreatedWrapper_warning
-          }`}
-          container
-          justify="center"
-          alignItems="center"
-        >
-          <Typography
-            className={classes.profileTasksCreatedWrapper__profileTasksCreated}
-            align="center"
-            variant="body2"
-            component="p"
-          >
-            {((tasksCreated / tasksAll) * 100).toFixed(0)}%
-          </Typography>
-        </Grid>
-      </Grid>
       <CardActionArea className={classes.profileSocials} href={contactLink}>
         <Grid container justify="center" alignItems="center">
           <SvgIcon className={`${classes.profileSocials__profileSocialIcon} tg-icon`}>
