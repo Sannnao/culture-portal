@@ -25,22 +25,14 @@ main {
 
 .footer {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
+  justify-content: space-around;
   align-items: center;
-  justify-content: center;
-  height: 4vw;
+  height: 10vw;
   background: #303030;
   box-shadow: 0 -1px 12px #000000f0;
   font-family: 'Roboto Condensed', sans-serif;
-
-  p {
-    display: block;
-    color: #ffffff;
-    a {
-      text-decoration: none;
-      color: #3f50b5;
-    }
-  }
+  color: #ffffff;
 }
 
 @media screen and (max-width: 1980px) {

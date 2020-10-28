@@ -6,8 +6,10 @@ import icons from './assets/svg-icons';
 
 const useStyles = makeStyles({
   githubCard: {
-    width: '15%',
-    height: '65%',
+    display: 'flex',
+    flexDirection: 'column',
+    width: '24%',
+    height: '100%',
   },
   actionArea: {
     display: 'flex',
@@ -17,8 +19,8 @@ const useStyles = makeStyles({
     paddingBottom: '2%',
   },
   githubCardContent__profileImage: {
-    width: 110,
-    height: 110,
+    width: 80,
+    height: 80,
   },
   githubCardContent__profileNickname: {
     marginTop: '5%',
@@ -52,7 +54,7 @@ const GithubProfile = props => {
   const classes = useStyles();
 
   return (
-    <Card className={`${classes.githubCard} gh-gard`}>
+    <div className={`${classes.githubCard} gh-gard`}>
       <CardActionArea className={classes.actionArea} href={githubLink}>
         <Grid
           className={classes.githubCardContent}
@@ -76,7 +78,6 @@ const GithubProfile = props => {
             <Typography
               className={`${classes.githubCardContent__profileName} gh-name`}
               variant="body2"
-              color="textSecondary"
               component="p"
             >
               {name} {surname}
@@ -91,7 +92,7 @@ const GithubProfile = props => {
           </SvgIcon>
         </Grid>
       </CardActionArea>
-    </Card>
+    </div>
   );
 };
 

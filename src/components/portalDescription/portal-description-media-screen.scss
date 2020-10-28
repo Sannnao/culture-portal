@@ -1,6 +1,20 @@
 $laptopScreen: 1200px;
 $tabletScreen: 760px;
 
+.portal-description {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  width: 100%;
+
+  &__built-with {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+  }
+}
+
 @media screen and (min-width: $laptopScreen) {
   .top-section {
     height: 40vw;
@@ -11,7 +25,7 @@ $tabletScreen: 760px;
   }
 
   .about-section {
-    height: 25vw;
+    height: 15vw;
   }
 
   p.about-section__about-section-header {
@@ -24,26 +38,18 @@ $tabletScreen: 760px;
     width: 4vw;
   }
 
-  .used-tecnologies-container {
-    height: 35vw;
-  }
-
   p.used-tecnologies-container__used-technologies-header {
     font-size: 3vw;
     text-align: center;
   }
 
-  .open-source-section {
-    height: 30vw;
-  }
-
   p.open-source-section__open-source-header {
-    font-size: 3.5vw;
+    font-size: 1.2vw;
     text-align: center;
   }
 
   .MuiButton-root.open-source-section__open-source-button {
-    font-size: 3.5vw;
+    font-size: 1vw;
   }
 }
 

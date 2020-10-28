@@ -8,31 +8,24 @@ import GithubProfile from '../github-profile';
 const useStyles = makeStyles({
   developersListContainer: {
     display: 'flex',
-    flexDirection: 'column',
     justifyContent: 'space-around',
-    height: '40vw',
-    marginTop: '5vw',
-    marginBottom: '5vw',
-
-    background:
-      'linear-gradient(#ffffff 0%, #aee3ee70 25%, #16e9c950 50%, #aee3ee70 90%, #ffffff 100%)',
-    backgroundSize: '100% 100%',
+    alignItems: 'center',
+    width: '55%',
   },
 
   developersListContainer__deveolpersListHeader: {
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
-    height: '30%',
-    fontSize: '40px',
-    textAlign: 'center',
+    fontSize: '1.2vw',
+    color: '#ffffff',
   },
 
   developersListContainer__developersList: {
     display: 'flex',
     justifyContent: 'space-between',
     width: '95%',
-    height: '65%',
+    height: '70%',
   },
 });
 
@@ -72,16 +65,11 @@ const DevelopersList = props => {
   return (
     <Grid
       className={`${classes.developersListContainer} developers-list-container`}
-      container
-      direction="column"
-      justify="space-around"
-      alignItems="center"
     >
       <Typography
         className={`${classes.developersListContainer__deveolpersListHeader} developers-list-container__deveolpers-list-header`}
-        color="textSecondary"
         variant="h5"
-        component="h2"
+        component="h3"
       >
         {developersListHeader}
       </Typography>
